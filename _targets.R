@@ -1,5 +1,9 @@
+#install.packages("targets")
 library(targets)
+#install.packages("tarchetypes")
 library(tarchetypes) # For extra target archetypes
+#install.packages("qs2")
+library(qs2)
 
 # Which packages do you need?
 pkgs <- c(
@@ -13,11 +17,11 @@ pkgs <- c(
   "zip" # manipulate zip files
 )
 # Install packages if you don't already have them
-install.packages(setdiff(pkgs, row.names(installed.packages())))
+#install.packages(setdiff(pkgs, row.names(installed.packages())))
 
 # NOTE! The packages specified in `pkgs` will be used by the targets.
 # They will, however, not be available within the interactive session unless you also load them here:
-invisible(lapply(pkgs, library, character.only = TRUE))
+#invisible(lapply(pkgs, library, character.only = TRUE))
 
 # Set target options:
 tar_option_set(
@@ -45,21 +49,24 @@ if (!fs::file_exists("data.zip")) {
 # Help: https://books.ropensci.org/targets/walkthrough.html#inspect-the-pipeline
 
 list(
-  # make the zipdata object refer to the data.zip file path
-  tar_target(zipdata, "data.zip", format = "file")
+  #define the zip file path
+  tar_target(zipdata, "data.zip", format = "file"),
 
-  # TODO: Something related to zip should be added here:
-  # And this comment should be replaced by something more useful
+  #unzip the file
+  tar_target(cvs_files, zip::unzip(zipdata)),
 
-  # TODO: uncomment this section when instructed
-  # tar_map(
-  #  values = tibble::tibble(path = dir("data-fixed", full.names = TRUE)) |>
-  #    dplyr::mutate(name = tools::file_path_sans_ext(basename(path))),
-  #  tar_target(dt, fread(path)),
-  #  names = name,
-  #  descriptions = NULL
-  #),
+  #dynamically read all files found in data-fixed
+  #I removed the fs::dir_map line because it was causing the error
+  tar_map(
+   values = tibble::tibble(path = dir("data-fixed", full.names = TRUE)) |> #looks inside data-fixed and gets the full path for every file inside
+     dplyr::mutate(name = tools::file_path_sans_ext(basename(path))), #creates a clean name column by stripping away the folder path and the file extension
+   tar_target(dt, fread(path)), #for every row in the table above, tar_map will generate a target named dt
+   names = name, #tells tar_map how to name the resulting targets in the pipeline
+   descriptions = NULL
+  )
+  #Bascially, it is scanning the folder of files and creating a separate "read" step for every single file it finds, all at once.
 
+  
   # TODO: something related to codebook should be added here
 
   # TODO: Something related to data_scans should be added here
