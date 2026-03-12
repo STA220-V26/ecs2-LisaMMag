@@ -131,7 +131,7 @@ What is the result? What can it be used for? You need to understand at least som
 Lets cache the output from this function by adding it to the targets pipeline. Add something like this at the relevant place in the `_targets.R` file:
 
 ```{r}
-tar_target(codebook, _____())
+tar_target(codebook, ________)
 ```
 
 Save the file and run `tar_make()`. Load the codebook and let's have a look at the variables found in the `dt_patients` data set:

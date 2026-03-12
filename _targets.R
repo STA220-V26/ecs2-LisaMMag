@@ -4,6 +4,8 @@ library(targets)
 library(tarchetypes) # For extra target archetypes
 #install.packages("qs2")
 library(qs2)
+#install.packages("qs") #not available on CRAN, so might need to get it off 
+#library(qs)
 
 # Which packages do you need?
 pkgs <- c(
@@ -14,7 +16,10 @@ pkgs <- c(
   "tidyverse", # Data management
   "data.table", # fast data management
   "fs", # to work wit hthe file system
-  "zip" # manipulate zip files
+  "zip", # manipulate zip files
+  "targets",
+  "tarchetypes",
+  "qs2"
 )
 # Install packages if you don't already have them
 #install.packages(setdiff(pkgs, row.names(installed.packages())))
@@ -63,11 +68,11 @@ list(
    tar_target(dt, fread(path)), #for every row in the table above, tar_map will generate a target named dt
    names = name, #tells tar_map how to name the resulting targets in the pipeline
    descriptions = NULL
-  )
+  ),
   #Bascially, it is scanning the folder of files and creating a separate "read" step for every single file it finds, all at once.
-
   
-  # TODO: something related to codebook should be added here
+  #the codebook
+  tar_target(codebook, get_codebook())
 
   # TODO: Something related to data_scans should be added here
 )
