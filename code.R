@@ -97,3 +97,10 @@ gtsummary::tbl_summary(dt_patients[, .(
 library(pointblank)
 
 dt_patients |> pointblank::scan_data(sections = "OMSV")
+
+
+
+
+
+tar_read(codebook)[key == "primary", .(file, column_name)] 
+setkey(dt_patients, id)

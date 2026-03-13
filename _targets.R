@@ -65,7 +65,7 @@ list(
   tar_map(
    values = tibble::tibble(path = dir("data-fixed", full.names = TRUE)) |> #looks inside data-fixed and gets the full path for every file inside
      dplyr::mutate(name = tools::file_path_sans_ext(basename(path))), #creates a clean name column by stripping away the folder path and the file extension
-   tar_target(dt, fread(path)), #for every row in the table above, tar_map will generate a target named dt
+   tar_target(dt, fread_key(path)), #for every row in the table above, tar_map will generate a target named dt
    names = name, #tells tar_map how to name the resulting targets in the pipeline
    descriptions = NULL
   ),
