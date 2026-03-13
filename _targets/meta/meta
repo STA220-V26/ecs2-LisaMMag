@@ -25,3 +25,6 @@ export_data_scan|function|a1f1c7813378b3f9
 pkgs|object|f9d7aaba23b0429c
 get_codebook|function|7b97efb46d2b8cd5
 export_data_scans|function|a3622d6e6a84d364
+data_scan_allergies|stem|00f3ecb2f37455c0|b954e1c21830e677|e705171dfd19e271|83938217|data_scans/allergies.html|t20525.4549620408s|s1418484b|1418484|file|local|vector|||5.237|Only useing a sample of the data!|
+data_scan_patient|stem|896468dd9deb316b|8450880d018ea84b|102d004733b036fa|-976060655|data_scans/patients.html|t20525.4550817015s|s2412266b|2412266|file|local|vector|||10.316|Only useing a sample of the data!|
+data_scan_conditions|stem|836b729fc3d0f84a|5e06284dd329c0cd|a28cdeb9254192ea|-79835561|data_scans/conditions.html|t20525.4551065067s|s807831b|807831|file|local|vector|||2.047|Only useing a sample of the data!|

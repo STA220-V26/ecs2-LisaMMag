@@ -72,7 +72,11 @@ list(
   #Bascially, it is scanning the folder of files and creating a separate "read" step for every single file it finds, all at once.
   
   #the codebook
-  tar_target(codebook, get_codebook())
+  tar_target(codebook, get_codebook()),
 
-  # TODO: Something related to data_scans should be added here
+  tar_target(data_scan_patient, export_data_scan(dt_patients, "patients"), format = "file"),
+
+  tar_target(data_scan_allergies, export_data_scan(dt_allergies, "allergies"), format = "file"),
+
+  tar_target(data_scan_conditions, export_data_scan(dt_conditions, "conditions"), format = "file")
 )
